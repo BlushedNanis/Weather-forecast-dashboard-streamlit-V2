@@ -1,4 +1,6 @@
 import streamlit as st
+import plotly.express as px
+
 
 st.title(body="Weather forecast for the next days", anchor=False)
 

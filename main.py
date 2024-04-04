@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from backend import get_forecast_data
+from backend import get_forecast_data, filter_data
 
 
 st.set_page_config(page_title="Weather Forecast")
@@ -22,28 +22,33 @@ option = st.selectbox(label="Select the data to view",
 st.divider()
 
 
-tab1, tab2, tab3 = st.tabs([":thermometer: Temperatures Chart",
-                     ":mostly_sunny: Weather Conditions",
-                     ":cyclone: Wind Chart"])
+tab1, tab2, tab3, tab4 = st.tabs([":thermometer: Temperature Chart, C",
+                                  ":mostly_sunny: Weather Conditions",
+                                  ":cyclone: Wind Chart, m/s",
+                                  ":sweat_drops: Humidity Chart, %"])
 
 if place:
     
-    weather, city = get_forecast_data(place, days)
+    data = get_forecast_data(place, days)
+    filtered_data = filter_data(data)
+    dates = pd.to_datetime(filtered_data["dates"])
     
     with tab1:
         
-        temp_data = {"Temperatures": [dict["main"]["temp"] for dict in weather]}
-        temp_data["Dates"] = pd.to_datetime([dict["dt_txt"] for dict in weather])
-        temp_df = pd.DataFrame(data=temp_data)
-        st.line_chart(temp_df, x="Dates", y="Temperatures")
+        temp_data = {"Temperature": filtered_data["temperature"],
+                     "Feels like": filtered_data["feel temperature"],
+                     "Dates": dates}
+        temp_df = pd.DataFrame(temp_data)
+        st.line_chart(temp_df, x="Dates", y=["Temperature","Feels like"],
+                      color=["#036bfc","#fc0303"])
                   
     with tab2:
         st.title("Test")
         icons = {"Clear": "icons\\sunny.png", "Rain": "icons\\rainy.png",
                 "Clouds": "icons\\cloudy.png", "Snow": "icons\\snowy.png"}
-        sky_conditions = [dict["weather"][0]["main"] for dict in weather]
-        icons_paths = [icons[condition] for condition in sky_conditions]
-        st.image(icons_paths, width=115)
+        #sky_conditions = [dict["weather"][0]["main"] for dict in weather]
+        #icons_paths = [icons[condition] for condition in sky_conditions]
+        #st.image(icons_paths, width=115)
         
     with tab3:
         st.title("Test")

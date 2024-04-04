@@ -42,6 +42,8 @@ def filter_data(data:dict):
 
     Returns:
         dict: Filtered weather data.
+        Keys: avg temperature, min temperature, max temperature, weather icons,
+              weather description, humidity, wind speed.
     """
     filtered_data = {}
     weather_data = data["list"]

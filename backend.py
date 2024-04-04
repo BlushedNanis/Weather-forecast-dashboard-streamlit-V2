@@ -21,15 +21,18 @@ def get_forecast_data(place:str, days:int, kind:str):
     """
     #Make request and get content into a data variable in json format
     api_key = getenv("api_key")
-    url = "https://api.openweathermap.org/data/2.5/forecast?"\
-    f"q={place}&units=metric&appid={api_key}"
+    url = "https://api.openweathermap.org/data/2.5/forecast?q="\
+    f"{place}&"\
+    f"cnt={8 * days}&"\
+    f"units=metric&"\
+    f"appid={api_key}"
     response = get(url)
     data = response.json()
     
     """The data contains forecast for every 3 hours, meaning that every day 
     contains 8 dictionaries of forecasted data, since it forecast 5 days that 
     gives us 40 dictionaries per request"""
-    filtered_data = data["list"][:8 * days]
+    filtered_data = data["list"]
     
     #Further filter data depending on the kind arg
     if kind == "Temperature":

@@ -15,20 +15,23 @@ option = st.selectbox(label="Select the data to view",
 st.divider()
 st.header(body=f"{option} for the next {days} days in {place}", anchor=False)
 
-
-if place:
-    data = get_forecast_data(place, days)
+try:
     
-    if option == "Temperature":
-        temperatures = [dict["main"]["temp"] for dict in data]
-        dates = [dict["dt_txt"] for dict in data]
-        figure = px.line(x=dates, y=temperatures)
-        st.plotly_chart(figure_or_data=figure)
+    if place:
+        data = get_forecast_data(place, days)
         
-    if option == "Sky":
-        icons = {"Clear": "icons\\sunny.png", "Rain": "icons\\rainy.png",
-                 "Clouds": "icons\\cloudy.png", "Snow": "icons\\snowy.png"}
-        sky_conditions = [dict["weather"][0]["main"] for dict in data]
-        icons_paths = [icons[condition] for condition in sky_conditions]
-        st.image(icons_paths, width=115)
+        if option == "Temperature":
+            temperatures = [dict["main"]["temp"] for dict in data]
+            dates = [dict["dt_txt"] for dict in data]
+            figure = px.line(x=dates, y=temperatures)
+            st.plotly_chart(figure_or_data=figure)
+            
+        if option == "Sky":
+            icons = {"Clear": "icons\\sunny.png", "Rain": "icons\\rainy.png",
+                    "Clouds": "icons\\cloudy.png", "Snow": "icons\\snowy.png"}
+            sky_conditions = [dict["weather"][0]["main"] for dict in data]
+            icons_paths = [icons[condition] for condition in sky_conditions]
+            st.image(icons_paths, width=115)
 
+except KeyError:
+    st.warning("Looks like you introduced a non-existing city, please try again.")

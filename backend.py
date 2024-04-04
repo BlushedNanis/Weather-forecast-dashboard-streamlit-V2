@@ -28,12 +28,10 @@ def get_forecast_data(place:str, days:int):
     response = get(url)
     data = response.json()
     
-    """The data contains forecast for every 3 hours, meaning that every day 
-    contains 8 dictionaries of forecasted data, since it forecast 5 days that 
-    gives us 40 dictionaries per request"""
-    filtered_data = data["list"]
+    weather_data = data["list"]
+    city_data = data["city"]
     
-    return filtered_data
+    return weather_data, city_data
 
 
 if __name__ == "__main__":

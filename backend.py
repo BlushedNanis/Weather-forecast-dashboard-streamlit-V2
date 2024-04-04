@@ -6,7 +6,7 @@ from requests import get
 load_dotenv()
 
 
-def get_forecast_data(place:str, days:int, kind:str):
+def get_forecast_data(place:str, days:int):
     """
     Sends a request to openweathermap.org to get the forecasted data for 
     the specified days and the specified kind. 
@@ -34,12 +34,6 @@ def get_forecast_data(place:str, days:int, kind:str):
     gives us 40 dictionaries per request"""
     filtered_data = data["list"]
     
-    #Further filter data depending on the kind arg
-    if kind == "Temperature":
-        filtered_data = [dict["main"]["temp"] for dict in filtered_data]
-    if kind == "Sky":
-        filtered_data = [dict["weather"][0]["main"] for dict in filtered_data]
-        
     return filtered_data
 
 

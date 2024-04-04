@@ -47,11 +47,9 @@ def filter_data(data:dict):
     """
     filtered_data = {}
     weather_data = data["list"]
-    filtered_data["avg temperature"] = [dict["main"]["temp"]
+    filtered_data["temperature"] = [dict["main"]["temp"]
                                         for dict in weather_data]
-    filtered_data["min temperature"] = [dict["main"]["temp_min"]
-                                        for dict in weather_data]
-    filtered_data["max temperature"] = [dict["main"]["temp_max"]
+    filtered_data["feel temperature"] = [dict["main"]["feels_like"]
                                         for dict in weather_data]
     filtered_data["weather icons"] = [dict["weather"][0]["icon"]
                                       for dict in weather_data]

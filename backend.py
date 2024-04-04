@@ -14,7 +14,6 @@ def get_forecast_data(place:str, days:int):
     Args:
         place (str): Name of the city to get weather data
         days (int): Numbers of day to forecast
-        kind (str): Type of data to get (Temperature or Sky)
 
     Returns:
         list: Forecasted data for the specified args.
@@ -38,5 +37,5 @@ def get_forecast_data(place:str, days:int):
 
 
 if __name__ == "__main__":
-    print(get_forecast_data("london", 2, "Temperature"))
+    print(get_forecast_data("london", 2))
     

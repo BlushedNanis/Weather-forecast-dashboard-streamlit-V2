@@ -31,9 +31,39 @@ def get_forecast_data(place:str, days:int):
     weather_data = data["list"]
     city_data = data["city"]
     
-    return weather_data, city_data
+    return data
+
+def filter_data(data:dict):
+    """Filters the given weather data to obtain temperatures, weather conditions,
+    humidity and wind speed information.
+
+    Args:
+        data (dict): Weather data.
+
+    Returns:
+        dict: Filtered weather data.
+    """
+    filtered_data = {}
+    weather_data = data["list"]
+    filtered_data["avg temperature"] = [dict["main"]["temp"]
+                                        for dict in weather_data]
+    filtered_data["min temperature"] = [dict["main"]["temp_min"]
+                                        for dict in weather_data]
+    filtered_data["max temperature"] = [dict["main"]["temp_max"]
+                                        for dict in weather_data]
+    filtered_data["weather icons"] = [dict["weather"][0]["icon"]
+                                      for dict in weather_data]
+    filtered_data["weather description"] = [dict["weather"][0]["description"]
+                                            for dict in weather_data]
+    filtered_data["humidity"] = [dict["main"]["humidity"]
+                                 for dict in weather_data]
+    filtered_data["wind speed"] = [dict["wind"]["speed"]
+                                   for dict in weather_data]
+    return filtered_data
 
 
 if __name__ == "__main__":
-    print(get_forecast_data("london", 2))
+    forecast = get_forecast_data("london", 2)
+    print(forecast)
+    print(filter_data(forecast))
     

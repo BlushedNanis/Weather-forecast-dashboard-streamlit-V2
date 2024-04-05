@@ -27,10 +27,7 @@ def get_forecast_data(place:str, days:int):
     f"appid={api_key}"
     response = get(url)
     data = response.json()
-    
-    weather_data = data["list"]
-    city_data = data["city"]
-    
+
     return data
 
 def filter_data(data:dict):

@@ -1,6 +1,6 @@
 # Weather Forecast Dashboard (Streamlit)
 
-Web-app amde with streamlit. The user can monitor temperature, wind, humidity, and a simple yet user-friendly tab for weather conditions on a dashboard that displays the user's selected city's predicted weather for up to five days in advance.
+Web-app made with streamlit. The user can monitor temperature, wind, humidity, and a simple yet user-friendly tab for weather conditions on a dashboard that displays the user's selected city's predicted weather for up to five days in advance.
 
 Since the interface and functionality are straightforward, the entire web portion of the project is built on streamlit.
 
